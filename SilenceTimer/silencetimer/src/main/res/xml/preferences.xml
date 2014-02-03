@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceCategory android:title="Behavior">
+    <CheckBoxPreference android:title="Automatically set silence timer"
+        android:key="auto_timer_enabled"
+        android:defaultValue="true"
+        android:summaryOn="The ringer mode will be automatically reverted to normal after a set time and a notification will be shown that lets you change the time or abort"
+        android:summaryOff="When entering silent/vibration mode, a notification will be shown, letting you set a time after which to revert to normal mode."/>
+    <ListPreference android:key="default_silence_time">
+
+    </ListPreference>
+</PreferenceCategory>
+</PreferenceScreen>
