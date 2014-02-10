@@ -9,4 +9,4 @@ This app detects when you set your ringer to silent or vibration mode will help 
 I created this app mostly for myself since I wanted the functionality, but couldn't find any app that did this and only this.
 
 
-Playstore: https://play.google.com/store/apps/details?id=se.magnulund.dev.android.silencetimer
+Google Play: https://play.google.com/store/apps/details?id=se.magnulund.dev.android.silencetimer
