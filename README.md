@@ -11,7 +11,7 @@ I created this app mostly for myself since I wanted the functionality, but could
 
 Google Play: https://play.google.com/store/apps/details?id=se.magnulund.dev.android.silencetimer
 
-Copyright {2014} {Gustav Nordlund}
+Copyright 2014 Gustav Nordlund
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
