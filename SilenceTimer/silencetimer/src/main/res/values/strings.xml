@@ -1,8 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Silence Timer</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Ringer Timer</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="timer_durations">
+        <item>1 min</item>
+        <item>10 min</item>
+        <item>30 min</item>
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>8 hours</item>
+    </string-array>
+    <string-array name="timer_duration_values">
+        <item>1</item>
+        <item>10</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>480</item>
+    </string-array>
+
+    <string name="title_activity_timer_dialog">TimerDialogActivity</string>
+    <string name="notification_cancel_button">Don\'t revert</string>
+    <string name="notification_change_duration_button">Add 1 h</string>
+    <string name="notification_content_change_duration">Click to change duration.</string>
+    <string name="notification_title_silenced_until">Silenced until %s</string>
+    <string name="notification_title_vibrate_until">Vibrate only until %s</string>
+    <string name="notification_set_default_button">Revert in %s</string>
+    <string name="vibration_mode">vibration mode</string>
+    <string name="silent_mode">silent mode</string>
+    <string name="dialog_set_duration">Set %s duration</string>
+    <string name="dialog_set_button">Set</string>
+    <string name="dialog_cancel_button">Cancel</string>
+    <string name="notification_set_duration_button">Set duration</string>
+    <string name="notification_set_duration_content">Click to set default duration (%s)</string>
+    <string name="notification_title_vibrate">Ringer on vibrate</string>
+    <string name="notification_title_silent">Ringer silenced</string>
+    <string name="toast_silence_timer_started">Ringer silenced until %s</string>
+    <string name="toast_vibrate_timer_started">Ringer on vibrate until %s</string>
+    <string name="toast_unknown_timer_started">Ringer timer set to expire at %s</string>
+    <string name="toast_cancelled">Ringer timer cancelled</string>
+    <string name="dialog_tab_duration">Duration</string>
+    <string name="dialog_tab_time">Time</string>
+    <string name="duration_picker_hours">hours</string>
+    <string name="duration_picker_minutes">minutes</string>
+    <string name="pref_key_auto_timer_enabled_title">Automatically set silence timer</string>
+    <string name="pref_key_auto_timer_enabled_summary_on">Silent/vibration ringer modes will be automatically reverted after a default time. A notification will let you change the time or cancel the timer.</string>
+    <string name="pref_key_auto_timer_enabled_summary_off">When entering silent/vibration mode a notification will be shown, letting you set a time after which the ringer mode will revert.</string>
+    <string name="pref_key_default_timer_title">Default timer duration</string>
+    <string name="pref_key_default_timer_dialog_title">Set default duration</string>
+    <string name="pref_key_always_revert_to_normal_title">Always revert to normal</string>
+    <string name="pref_key_always_revert_to_normal_summary_on">The ringer will always revert to normal mode (sound on) when the timer expires.</string>
+    <string name="pref_key_always_revert_to_normal_summary_off">The ringer will revert to the previous mode when the timer expires.</string>
+    <string name="pref_key_enabled_title">Enabled</string>
+    <string name="pref_cat_behavior">Behavior</string>
+    <string name="pref_key_default_timer_defaultValue">60</string>
 
 </resources>

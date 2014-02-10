@@ -1,10 +1,12 @@
 package se.magnulund.dev.android.silencetimer;
 
 import android.app.Activity;
-import android.preference.PreferenceFragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import se.magnulund.dev.android.silencetimer.fragments.SettingsFragment;
+import se.magnulund.dev.android.silencetimer.preferences.Prefs;
 
 public class MainActivity extends Activity {
 
@@ -12,6 +14,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Prefs.get(this); //sets up default shared prefs if needed
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -29,16 +33,6 @@ public class MainActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
-    }
-
-    public static class SettingsFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            addPreferencesFromResource(R.xml.preferences);
-        }
     }
 
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ringsignalstimer</string>
+    <string name="action_settings">Inställningar</string>
+
+    <string-array name="timer_durations">
+        <item>1 min</item>
+        <item>10 min</item>
+        <item>30 min</item>
+        <item>1 timme</item>
+        <item>2 timmar</item>
+        <item>8 timmar</item>
+    </string-array>
+    <string-array name="timer_duration_values">
+        <item>1</item>
+        <item>10</item>
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>480</item>
+    </string-array>
+
+    <string name="title_activity_timer_dialog">TimerDialogActivity</string>
+    <string name="notification_cancel_button">Återställ ej</string>
+    <string name="notification_change_duration_button">Öka 60 min</string>
+    <string name="notification_content_change_duration">Klicka för att ändra tid.</string>
+    <string name="notification_title_silenced_until">Tyst till kl %s</string>
+    <string name="notification_title_vibrate_until">Endast vibration till kl %s</string>
+    <string name="notification_set_default_button">Återställ om %s</string>
+    <string name="vibration_mode">vibrationsläge</string>
+    <string name="silent_mode">tyst läge</string>
+    <string name="dialog_set_duration">Välj tid för %s</string>
+    <string name="dialog_set_button">Välj</string>
+    <string name="dialog_cancel_button">Avbryt</string>
+    <string name="notification_set_duration_button">Välj tid</string>
+    <string name="notification_set_duration_content">Klicka för att välja standard tid (%s)</string>
+    <string name="notification_title_vibrate">Vibrationsläge</string>
+    <string name="notification_title_silent">Tyst läge</string>
+    <string name="toast_silence_timer_started">Tyst läge till kl %s</string>
+    <string name="toast_vibrate_timer_started">Vibrationsläge till kl %s</string>
+    <string name="toast_unknown_timer_started">Ringsignalsläge åteställs kl %s</string>
+    <string name="toast_cancelled">Ringsignalsåterställning avbruten</string>
+    <string name="dialog_tab_duration">Tid</string>
+    <string name="dialog_tab_time">Klockslag</string>
+    <string name="duration_picker_hours">timmar</string>
+    <string name="duration_picker_minutes">minuter</string>
+    <string name="pref_key_auto_timer_enabled_title">Återställ automatiskt ringsignal</string>
+    <string name="pref_key_auto_timer_enabled_summary_on">Tyst/vibrationsläge återställs automatiskt efter standardtiden. En notis låter dig abryta eller ändra tiden för återställningen.</string>
+    <string name="pref_key_auto_timer_enabled_summary_off">Vid tyst/vibrationsläge visas en notis som låter dig ställa tiden då ringsignalsläget ska återställas.</string>
+    <string name="pref_key_default_timer_title">Standardtid för ringsignalsåterställning</string>
+    <string name="pref_key_default_timer_dialog_title">Välj standardtid</string>
+    <string name="pref_key_always_revert_to_normal_title">Återgå alltid till standardläge</string>
+    <string name="pref_key_always_revert_to_normal_summary_on">Ringsignalen återgår alltid till standardläge (ringsignal på).</string>
+    <string name="pref_key_always_revert_to_normal_summary_off">Ringsignalen återgår till föregående läge.</string>
+    <string name="pref_key_enabled_title">Aktiverad</string>
+    <string name="pref_cat_behavior">Beteende</string>
+    <string name="pref_key_default_timer_defaultValue">60</string>
+
+</resources>
