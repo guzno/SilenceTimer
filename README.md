@@ -1,4 +1,4 @@
-RingerTimer
+SilenceTimer
 ===========
 
 This app detects when you set your ringer to silent or vibration mode will help you turn your ringer volume on again. 
