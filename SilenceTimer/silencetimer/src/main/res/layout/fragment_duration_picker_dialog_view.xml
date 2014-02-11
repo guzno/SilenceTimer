@@ -38,6 +38,8 @@
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal"
                     android:layout_gravity="right"
+                    android:descendantFocusability="beforeDescendants"
+                    android:focusableInTouchMode="true"
                     android:baselineAligned="false">
 
                     <LinearLayout
