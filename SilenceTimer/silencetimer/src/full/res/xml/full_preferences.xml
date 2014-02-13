@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/prefs_cat_sync_settings"
+        android:dependency="pref_key_enabled">
+        <CheckBoxPreference android:key="prefs_key_sync_enabled"
+            android:title="@string/prefs_key_sync_enabled"
+            android:defaultValue="false"
+            android:summaryOn="@string/prefs_key_sync_enabled_summary_on"
+            android:summaryOff="@string/prefs_key_sync_enabled_summary_off"/>
+    </PreferenceCategory>
+</PreferenceScreen>

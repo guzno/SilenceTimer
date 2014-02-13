@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ringer Sync</string>
+    <string name="prefs_cat_sync_settings">Sync settings</string>
+    <string name="prefs_key_sync_enabled">Enable sync</string>
+    <string name="prefs_key_sync_enabled_summary_on">Sync ringer mode between devices</string>
+    <string name="prefs_key_sync_enabled_summary_off">Changes in ringer mode only affects this device</string>
+</resources>

@@ -14,24 +14,25 @@ import java.util.Calendar;
 import se.magnulund.dev.android.silencetimer.models.RingerTimer;
 import se.magnulund.dev.android.silencetimer.utils.DateTimeUtil;
 
-public class Prefs {
+public class BasePrefs {
     public static final String KEY_PREF_ENABLED = "pref_key_enabled";
     public static final String KEY_PREF_AUTO_TIMER_ENABLED = "pref_key_auto_timer_enabled";
-    public static final String KEY_PREF_DEFAULT_TIMER = "pref_key_default_timer";
+    public static final String KEY_PREF_DEFAULT_TIMER = "key_default_timer";
     public static final String KEY_PREF_ALWAYS_REVERT_TO_NORMAL = "pref_key_always_revert_to_normal";
-    public static final String KEY_DEFAULT_TIMER = "key_default_timer";
-    private static final String TAG = "Prefs";
-    private static final String KEY_PREF_INITIALIZED = "pref_key_initialized";
-    private static final String KEY_VERSION = "pref_version";
-    private static final String KEY_PREVIOUS_RINGER_MODE = "key_previous_ringer_mode";
-    private static final String KEY_CURRENT_RINGER_MODE = "key_current_ringer_mode";
-    private static final String KEY_RINGER_TIMER_ACTIVE = "key_ringer_timer_active";
-    private static final String KEY_RINGER_TIMER = "key_ringer_timer";
-    private static final String KEY_RINGER_CHANGED = "key_ringer_changed";
 
-    private final SharedPreferences prefs;
+    static final String TAG = "Prefs";
+    static final String KEY_PREF_INITIALIZED = "pref_key_initialized";
+    static final String KEY_VERSION = "pref_version";
+    static final String KEY_PREVIOUS_RINGER_MODE = "key_previous_ringer_mode";
+    static final String KEY_CURRENT_RINGER_MODE = "key_current_ringer_mode";
+    static final String KEY_RINGER_TIMER_ACTIVE = "key_ringer_timer_active";
+    static final String KEY_RINGER_TIMER = "key_ringer_timer";
+    static final String KEY_RINGER_CHANGED = "key_ringer_changed";
 
-    private Prefs(Context context) {
+    final SharedPreferences prefs;
+    final SharedPreferences.Editor editor;
+
+    protected BasePrefs(Context context) {
         PackageManager packageManager = context.getPackageManager();
         assert packageManager != null;
         int versionCode;
@@ -41,18 +42,15 @@ public class Prefs {
             e.printStackTrace();
             versionCode = 1;
         }
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        editor = prefs.edit();
         boolean initializedNow = intializePrefsIfNeeded(context, versionCode);
         if (!initializedNow) {
-            boolean updateComplete = updatePrefsIfNeeded(context, versionCode);
+            boolean updateComplete = checkPrefsVersion(versionCode);
             if (!updateComplete) {
                 reInitializePrefs(context, versionCode);
             }
         }
-    }
-
-    public static Prefs get(Context context) {
-        return new Prefs(context);
     }
 
     public boolean alwaysRevertToNormal() {
@@ -68,7 +66,7 @@ public class Prefs {
     }
 
     public RingerTimer getDefaultTimer(int targetMode, int currentMode) {
-        long duration = prefs.getLong(KEY_DEFAULT_TIMER, 60) * DateTimeUtil.MILLIS_PER_MINUTE;
+        long duration = prefs.getLong(KEY_PREF_DEFAULT_TIMER, 60) * DateTimeUtil.MILLIS_PER_MINUTE;
         return new RingerTimer(targetMode, currentMode, duration, Calendar.getInstance().getTimeInMillis());
     }
 
@@ -77,7 +75,7 @@ public class Prefs {
     }
 
     public void setPreviousRingerMode(int ringerMode) {
-        prefs.edit().putInt(KEY_PREVIOUS_RINGER_MODE, ringerMode).commit();
+        editor.putInt(KEY_PREVIOUS_RINGER_MODE, ringerMode).commit();
     }
 
     public void updateRingerModes(int newRingerMode) {
@@ -104,7 +102,7 @@ public class Prefs {
 
     public void setRingerTimer(RingerTimer ringerTimer) {
         try {
-            prefs.edit().putString(KEY_RINGER_TIMER, ringerTimer.toJSON().toString()).commit();
+            editor.putString(KEY_RINGER_TIMER, ringerTimer.toJSON().toString()).commit();
             setRingerTimerActive(true);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -113,7 +111,7 @@ public class Prefs {
 
     public void clearRingerTimer() {
         setRingerTimerActive(false);
-        prefs.edit().putString(KEY_RINGER_TIMER, null).commit();
+        editor.putString(KEY_RINGER_TIMER, null).commit();
     }
 
     public int getCurrentRingerMode() {
@@ -121,7 +119,7 @@ public class Prefs {
     }
 
     public void setCurrentRingerMode(int ringerMode) {
-        prefs.edit().putInt(KEY_CURRENT_RINGER_MODE, ringerMode).commit();
+        editor.putInt(KEY_CURRENT_RINGER_MODE, ringerMode).commit();
     }
 
     public boolean isRingerTimerActive() {
@@ -129,57 +127,64 @@ public class Prefs {
     }
 
     public void setRingerTimerActive(boolean isActive) {
-        prefs.edit().putBoolean(KEY_RINGER_TIMER_ACTIVE, isActive).commit();
+        editor.putBoolean(KEY_RINGER_TIMER_ACTIVE, isActive).commit();
     }
 
     private boolean intializePrefsIfNeeded(Context context, int versionCode) {
         if (!prefs.getBoolean(KEY_PREF_INITIALIZED, false)) {
-            Log.e(TAG, "init prefs");
-            prefs.edit()
-                    .putBoolean(KEY_PREF_ENABLED, true)
-                    .putInt(KEY_VERSION, versionCode)
-                    .putBoolean(KEY_PREF_AUTO_TIMER_ENABLED, true)
-                    .putBoolean(KEY_PREF_ALWAYS_REVERT_TO_NORMAL, false)
-                    .putString(KEY_PREF_DEFAULT_TIMER, "60")
-                    .putLong(KEY_DEFAULT_TIMER, 60)
-                    .putInt(KEY_PREVIOUS_RINGER_MODE, -1)
-                    .putInt(KEY_CURRENT_RINGER_MODE, ((AudioManager) context.getSystemService(Context.AUDIO_SERVICE)).getRingerMode())
-                    .putBoolean(KEY_RINGER_TIMER_ACTIVE, false)
-                    .putString(KEY_RINGER_TIMER, null)
-                    .putBoolean(KEY_RINGER_CHANGED, false)
-                    .putBoolean(KEY_PREF_INITIALIZED, true)
-                    .commit();
+            initializePrefs(context, versionCode);
+            
             return true;
         }
         return false;
     }
 
-    private boolean updatePrefsIfNeeded(Context context, int versionCode) {
+    void initializePrefs(Context context, int versionCode) {
+        Log.e(TAG, "init prefs");
+        editor.putBoolean(KEY_PREF_ENABLED, false)
+                .putInt(KEY_VERSION, versionCode)
+                .putBoolean(KEY_PREF_AUTO_TIMER_ENABLED, true)
+                .putBoolean(KEY_PREF_ALWAYS_REVERT_TO_NORMAL, false)
+                .putLong(KEY_PREF_DEFAULT_TIMER, 60)
+                .putInt(KEY_PREVIOUS_RINGER_MODE, -1)
+                .putInt(KEY_CURRENT_RINGER_MODE, ((AudioManager) context.getSystemService(Context.AUDIO_SERVICE)).getRingerMode())
+                .putBoolean(KEY_RINGER_TIMER_ACTIVE, false)
+                .putString(KEY_RINGER_TIMER, null)
+                .putBoolean(KEY_RINGER_CHANGED, false)
+                .putBoolean(KEY_PREF_INITIALIZED, true)
+                .commit();
+    }
+
+    private boolean checkPrefsVersion(int versionCode) {
         int storedVersionCode = prefs.getInt(KEY_VERSION, 0);
         if (storedVersionCode != versionCode) {
-            SharedPreferences.Editor editor = prefs.edit();
-            switch (storedVersionCode) {
-                case 0:
-                case 1:
-                    editor.putBoolean(KEY_PREF_ALWAYS_REVERT_TO_NORMAL, false);
-                case 2:
-                    editor.putBoolean(KEY_RINGER_CHANGED, false);
-                    break;
-                default:
-                    editor.commit();
-                    return false;
-            }
-            editor.putInt(KEY_VERSION, versionCode);
-            editor.commit();
-            Log.d(TAG, "updated prefs to version" + versionCode);
-            return true;
+            return updatePrefs(storedVersionCode);
         }
         return true;
     }
 
+    boolean updatePrefs(int versionCode) {
+        switch (versionCode) {
+            case 0:
+            case 1:
+                editor.putBoolean(KEY_PREF_ALWAYS_REVERT_TO_NORMAL, false);
+            case 2:
+                editor.putBoolean(KEY_RINGER_CHANGED, false);
+            case 3:
+            case 4:
+                break;
+            default:
+                editor.commit();
+                return false;
+        }
+        editor.putInt(KEY_VERSION, versionCode);
+        editor.commit();
+        Log.d(TAG, "updated prefs to version" + versionCode);
+        return true;
+    }
+
     private void reInitializePrefs(Context context, int versionCode) {
-        prefs.edit()
-                .putBoolean(KEY_PREF_INITIALIZED, false)
+        editor.putBoolean(KEY_PREF_INITIALIZED, false)
                 .commit();
         intializePrefsIfNeeded(context, versionCode);
     }
@@ -189,6 +194,6 @@ public class Prefs {
     }
 
     public void setRingerChanged(boolean ringerChanged) {
-        prefs.edit().putBoolean(KEY_RINGER_CHANGED, ringerChanged).commit();
+        editor.putBoolean(KEY_RINGER_CHANGED, ringerChanged).commit();
     }
 }

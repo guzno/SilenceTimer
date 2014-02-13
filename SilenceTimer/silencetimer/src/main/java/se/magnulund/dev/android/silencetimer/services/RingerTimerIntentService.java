@@ -5,13 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
 import se.magnulund.dev.android.silencetimer.R;
-import se.magnulund.dev.android.silencetimer.preferences.Prefs;
 import se.magnulund.dev.android.silencetimer.models.RingerTimer;
 import se.magnulund.dev.android.silencetimer.notifications.NotificationSender;
+import se.magnulund.dev.android.silencetimer.preferences.Prefs;
 import se.magnulund.dev.android.silencetimer.utils.DateTimeUtil;
 
 /**

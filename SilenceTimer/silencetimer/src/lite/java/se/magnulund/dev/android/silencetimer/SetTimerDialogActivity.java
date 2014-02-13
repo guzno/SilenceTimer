@@ -33,7 +33,7 @@ public class SetTimerDialogActivity extends Activity implements DurationPickerDi
             }
             ft.addToBackStack(null);
 
-            durationPickerDialogFragment = DurationPickerDialogFragment.newInstance(ringerTimer);
+            durationPickerDialogFragment = (DurationPickerDialogFragment) DurationPickerDialogFragment.newInstance(ringerTimer);
 
             durationPickerDialogFragment.show(ft, "dialog");
         }

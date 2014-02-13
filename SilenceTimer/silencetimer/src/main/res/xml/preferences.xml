@@ -6,29 +6,27 @@
         android:title="@string/pref_key_enabled_title"
         android:defaultValue="false"
         />
-    <PreferenceCategory android:title="@string/pref_cat_behavior">
+    <PreferenceCategory android:title="@string/pref_cat_behavior"
+        android:dependency="pref_key_enabled">
         <CheckBoxPreference
             android:key="pref_key_auto_timer_enabled"
             android:title="@string/pref_key_auto_timer_enabled_title"
             android:defaultValue="true"
             android:summaryOn="@string/pref_key_auto_timer_enabled_summary_on"
-            android:summaryOff="@string/pref_key_auto_timer_enabled_summary_off"
-            android:dependency="pref_key_enabled"/>
-        <ListPreference
-            android:key="pref_key_default_timer"
+            android:summaryOff="@string/pref_key_auto_timer_enabled_summary_off"/>
+        <se.magnulund.dev.android.silencetimer.preferences.LongListPreference
+            android:key="key_default_timer"
             android:title="@string/pref_key_default_timer_title"
             android:dialogTitle="@string/pref_key_default_timer_dialog_title"
             android:entries="@array/timer_durations"
             android:entryValues="@array/timer_duration_values"
             android:defaultValue="@string/pref_key_default_timer_defaultValue"
-            android:summary=""
-            android:dependency="pref_key_enabled"/>
+            android:summary=""/>
         <CheckBoxPreference
             android:key="pref_key_always_revert_to_normal"
             android:title="@string/pref_key_always_revert_to_normal_title"
             android:defaultValue="false"
             android:summaryOn="@string/pref_key_always_revert_to_normal_summary_on"
-            android:summaryOff="@string/pref_key_always_revert_to_normal_summary_off"
-            android:dependency="pref_key_enabled"/>
+            android:summaryOff="@string/pref_key_always_revert_to_normal_summary_off"/>
     </PreferenceCategory>
 </PreferenceScreen>

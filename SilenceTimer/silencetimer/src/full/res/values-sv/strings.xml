@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Synka Ringvolym</string>
+    <string name="prefs_cat_sync_settings">Sync settings</string>
+    <string name="prefs_key_sync_enabled">Synkronisering aktiv</string>
+    <string name="prefs_key_sync_enabled_summary_on">Ringsignalsläget synkroniseras mellan dina enheter</string>
+</resources>

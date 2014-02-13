@@ -9,9 +9,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import se.magnulund.dev.android.silencetimer.R;
-import se.magnulund.dev.android.silencetimer.preferences.Prefs;
 
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragmentBase extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,14 +45,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         updatePrefSummary(findPreference(key));
-        if (key.equals(Prefs.KEY_PREF_DEFAULT_TIMER)) {
-            Long value = Long.valueOf(sharedPreferences.getString(key, "60"));
-            if (value != null) {
-                sharedPreferences.edit()
-                        .putLong(Prefs.KEY_DEFAULT_TIMER, value)
-                        .commit();
-            }
-        }
     }
 
     private void initSummary(Preference p) {

@@ -23,7 +23,7 @@ import se.magnulund.dev.android.silencetimer.R;
 import se.magnulund.dev.android.silencetimer.models.RingerTimer;
 import se.magnulund.dev.android.silencetimer.utils.DateTimeUtil;
 
-public class DurationPickerDialogFragment extends DialogFragment {
+public class DurationPickerDialogFragmentBase extends DialogFragment {
 
     private static final String TAG = "DurationPickerDialogFragment";
 
@@ -34,8 +34,8 @@ public class DurationPickerDialogFragment extends DialogFragment {
 
     private DurationPickerListener durationPickerListener;
 
-    public static DurationPickerDialogFragment newInstance(RingerTimer ringerTimer) {
-        DurationPickerDialogFragment frag = new DurationPickerDialogFragment();
+    public static DurationPickerDialogFragmentBase newInstance(RingerTimer ringerTimer) {
+        DurationPickerDialogFragmentBase frag = new DurationPickerDialogFragmentBase();
         Bundle args = new Bundle();
         args.putParcelable(RingerTimer.RINGER_TIMER, ringerTimer);
         frag.setArguments(args);

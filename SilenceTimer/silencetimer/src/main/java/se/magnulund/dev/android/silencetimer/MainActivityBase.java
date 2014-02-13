@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import se.magnulund.dev.android.silencetimer.fragments.SettingsFragment;
 import se.magnulund.dev.android.silencetimer.preferences.Prefs;
 
-public class MainActivity extends Activity {
+public class MainActivityBase extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,12 +15,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Prefs.get(this); //sets up default shared prefs if needed
-
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new SettingsFragment())
-                    .commit();
-        }
     }
 
     @Override
